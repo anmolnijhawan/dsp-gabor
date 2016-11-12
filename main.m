@@ -1,5 +1,5 @@
 %% External driver script
-
+DEBUG = 1;
 % limits of search space
 %       mu_x, mu_y, sigma_x, sigma_y, fx, fy, theta, phase
 sMin = [  -1,   -1,       2,       2,  1,  1,     0,    0]';
@@ -14,4 +14,9 @@ num_gabor = 1;
 
 % x = zeros(maxItr);
 % y = zeros(maxItr);
+if DEBUG
+    disp('main: Calling stochasticSearch with params:')
+    sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files    
+end
+
 [x,y] = stochasticSearch( sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files )
