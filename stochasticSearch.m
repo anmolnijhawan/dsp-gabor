@@ -1,4 +1,4 @@
-function [ x,y ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr,files )
+function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr,files )
 %STOCHASTICSEARCH Program to implement the stochastic serach algorithm
 %   Eg:-stochasticSearch( [-20;-20],[20;20],100,4,4,1,1,[1;2],1,1,5 )
     DEBUG = 1;
@@ -47,8 +47,8 @@ function [ x,y ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxI
         population=nextGenPopulation;
         
     end
-    x=bestPointOfAGen(1,:);
-    y=bestPointOfAGen(2,:);
+    x=bestPointOfAGen;
+    
     if DEBUG
         disp('stochasticSearch: Finished search')
     end

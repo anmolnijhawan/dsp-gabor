@@ -12,11 +12,11 @@ maxItr=5;
 files = {'D51.gif', 'D96.gif'};
 num_gabor = 1;
 
-% x = zeros(maxItr);
-% y = zeros(maxItr);
 if DEBUG
     disp('main: Calling stochasticSearch with params:')
     sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files    
 end
 
-[x,y] = stochasticSearch( sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files )
+joint_best_pop = stochasticSearch( sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files );
+filename = sprintf('population_variation_%s.mat',datestr(clock,'dd_HH_MM_SS'));
+save(filename);
