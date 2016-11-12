@@ -18,7 +18,7 @@ function [ newPopRW ] = genPopRW(population, cardinalityNewPopRW,radius, sMin,sM
                     randDirection=rand(1,dim(1));       %
                     randDirection=randDirection/norm(randDirection);
                     randDirection=randDirection';
-                    newSample=population(:,i)+radius.*([1;1]-2*randDirection);   %-2* factor is to crate both =ve and -ve direction
+                    newSample=population(:,i)+radius.*(ones(dim(1),1)-2*randDirection);   %-2* factor is to crate both =ve and -ve direction
                     [ newSample ] = boundCheck(newSample, sMin,sMax );
 %                     if new_sample(1)<smin(1)
 %                         new_sample(1)=smin(1);

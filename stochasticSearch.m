@@ -1,6 +1,6 @@
 function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr,files )
 %STOCHASTICSEARCH Program to implement the stochastic serach algorithm
-%   Eg:-stochasticSearch( [-20;-20],[20;20],100,4,4,1,1,[1;2],1,1,5 )
+%   Eg:-stochasticSearch( [-20;-20],[20;20],100,4... )
     DEBUG = 1;
 
     im_sizex = 640; im_sizey=640;
@@ -36,7 +36,7 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
             disp('stochasticSearch: Calling evalcost on RLC population')
         end
         newPopRLCCost=evalCost( newPopRLC,A );
-        combinedCost=[cost,newPopRWCost,newPopRRICost,newPopRLCCost];
+        combinedCost=[cost',newPopRWCost',newPopRRICost',newPopRLCCost'];
         combinedPopulation=[population,newPopRW,newPopRRI,newPopRLC];
         nextGenPopulation = nextGenSelection( combinedCost,combinedPopulation,noOfSamples );
         if DEBUG
