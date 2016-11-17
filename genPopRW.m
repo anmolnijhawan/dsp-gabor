@@ -6,7 +6,13 @@ function [ newPopRW ] = genPopRW(population, cardinalityNewPopRW,radius, sMin,sM
     dim=size(population);
     %cardinality_child=round(assigned_probability*N);    %number of childs which is to be selected from the viscinity of current sample
         %rand_direction=rand(1,dimension);
+        
         newPopRWNo=sum(cardinalityNewPopRW);
+        if isnan(newPopRWNo) || isinf(newPopRWNo)
+            newPopRW = [];
+            return;
+        end
+        
         newPopRW=zeros(dim(1),newPopRWNo);
         %newPopRWCost=zeros(1,newPopRWNo);            %Iniialize the matrix which stores the value of the cost function of the new population.
         k=1;

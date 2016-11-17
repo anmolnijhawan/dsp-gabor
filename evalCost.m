@@ -1,6 +1,12 @@
-function [ cost ] = evalCost( population, in_img )
+function [ cost ] = evalCost( population, in_img, save, savename )
 %EVALCOST Takes population and returns cost per initialisation
-    
+
+if nargin == 2
+    save = 0;
+    filename = [];
+end    
+
+
 DEBUG = 1;
 cost = zeros(size(population,2),1);
 
@@ -19,10 +25,10 @@ for pop = 1:size(population,2)
            disp('evalCost: Applying gabor filter')
            i
            size(Gr)
-           size(in_img(:,:,i))
+%            size(in_img(:,:,i))
        end
-       gr = imfilter(double(in_img(:,:,i)),Gr);
-       gi = imfilter(double(in_img(:,:,i)),Gi);
+       gr = conv2(double(in_img(:,:,i)),Gr,'same');    % Remove 'valid' for zero padding
+       gi = conv2(double(in_img(:,:,i)),Gi,'same');
        if DEBUG
            disp('evalCost: Magnitude')
        end
@@ -33,26 +39,27 @@ for pop = 1:size(population,2)
        s = smoothing(m, 7, 7);
        
        if DEBUG
-%            size(gr)
-%            size(m)
-%            size(s)
            figure(1);
-           imshow( (gr-min(min(gr)))/(max(max(gr))-min(min(gr))) );           
-           figure(2);
-           imshow( (m-min(min(m)))/(max(max(m))-min(min(m))) );
-           figure(3);
-           imshow( (s-min(min(s)))/(max(max(s))-min(min(s))) );
-%            pause(5);
-           
+           imshow( (Gr-min(min(Gr)))/(max(max(Gr))-min(min(Gr))) );
+           title('Real part of Gabor Filter (normalised)');
+%            figure(2);
+%            imshow( (gr-min(min(gr)))/(max(max(gr))-min(min(gr))) );
+%            title('Filter output (normalised)');           
+%            figure(3);
+%            imshow( (m-min(min(m)))/(max(max(m))-min(min(m))) );
+%            title('Magnitude output (normalised)');
        end
+
        if DEBUG
             disp('evalCost: Scanning')
        end
+
+       f_s = size(Gr);
        if i == 1
-            X1 = scanningwindows(s, 7, 7, 5);
+            X1 = scanningwindows(s, f_s(1), f_s(2), 5);    % Stride (argument no. 4) is changeable
             [tmpY,tmpC] = C_Y_of_X(X1);
        else if i == 2
-            X2 = scanningwindows(s, 7, 7, 5);
+            X2 = scanningwindows(s, f_s(1), f_s(2), 5);
             [tmpY,tmpC] = C_Y_of_X(X2);
            end
        end
@@ -63,14 +70,23 @@ for pop = 1:size(population,2)
        disp('evalCost: Scattering')
    end
    figure(4)
-   scatter(X1(1,:),X1(2,:));
+   scatter(X1(1,:),X1(2,:),'b','o');
    hold on
-   scatter(X2(1,:),X2(2,:));
+   scatter(X2(1,:),X2(2,:),'r','x');
+   title('Scatter plot of mean vs variance');
    hold off
+   if save == 1
+       if DEBUG
+           disp('evalCost: Saving scatter plot')
+       end
+       saveas(4,savename);
+   end
+   
    if DEBUG
        Y
        C
    end
+   
    d = (Y(1)-Y(2))'*(Y(1)-Y(2));
    s = max(C);
    cost(pop) = d/s;

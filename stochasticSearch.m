@@ -45,7 +45,8 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
         bestCostOfAGen(itr)=combinedCost(1);
         bestPointOfAGen(:,itr)=nextGenPopulation(:,1);  %best point in each iteration
         population=nextGenPopulation;
-        
+        % for saving the best scatter
+        evalCost(bestPointOfAGen(:,itr), A, 1, sprintf('best\iteration_%d.png',itr));
     end
     x=bestPointOfAGen;
     
