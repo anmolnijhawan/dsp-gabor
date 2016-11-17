@@ -17,6 +17,8 @@ if DEBUG
     sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files    
 end
 
+mkdir('best');
+
 joint_best_pop = stochasticSearch( sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files );
 filename = sprintf('population_variation_%s.mat',datestr(clock,'dd_HH_MM_SS'));
 save(filename);
