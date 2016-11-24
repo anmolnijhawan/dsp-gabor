@@ -3,7 +3,7 @@ function [ cost ] = evalCost( population, in_img, save, savename )
 
 if nargin == 2
     save = 0;
-    filename = [];
+    savename = [];
 end    
 
 
@@ -38,17 +38,17 @@ for pop = 1:size(population,2)
        end
        s = smoothing(m, 7, 7);
        
-       if DEBUG
-           figure(1);
-           imshow( (Gr-min(min(Gr)))/(max(max(Gr))-min(min(Gr))) );
-           title('Real part of Gabor Filter (normalised)');
+%        if DEBUG
+%            figure(1);
+%            imshow( (Gr-min(min(Gr)))/(max(max(Gr))-min(min(Gr))) );
+%            title('Real part of Gabor Filter (normalised)');
 %            figure(2);
 %            imshow( (gr-min(min(gr)))/(max(max(gr))-min(min(gr))) );
 %            title('Filter output (normalised)');           
 %            figure(3);
 %            imshow( (m-min(min(m)))/(max(max(m))-min(min(m))) );
 %            title('Magnitude output (normalised)');
-       end
+%        end
 
        if DEBUG
             disp('evalCost: Scanning')
@@ -66,16 +66,18 @@ for pop = 1:size(population,2)
        Y = [Y tmpY];
        C = [C tmpC];
    end
-   if DEBUG
-       disp('evalCost: Scattering')
-   end
-   figure(4)
-   scatter(X1(1,:),X1(2,:),'b','o');
-   hold on
-   scatter(X2(1,:),X2(2,:),'r','x');
-   title('Scatter plot of mean vs variance');
-   hold off
+
    if save == 1
+       if DEBUG
+        disp('evalCost: Scattering')
+       end
+
+       figure(4)
+       scatter(X1(1,:),X1(2,:),'b','o');
+       hold on
+       scatter(X2(1,:),X2(2,:),'r','x');
+       title('Scatter plot of mean vs variance');
+       hold off
        if DEBUG
            disp('evalCost: Saving scatter plot')
        end

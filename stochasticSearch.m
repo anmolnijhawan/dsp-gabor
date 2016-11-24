@@ -5,20 +5,30 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
 
     im_sizex = 640; im_sizey=640;
     population=generatePopulation(sMin,sMax,noOfSamples );
+    save(sprintf('iteration_0.mat'),'population');
     bestPointOfAGen=zeros(length(sMax),maxItr);
     bestCostOfAGen=zeros(1,maxItr);
- 
+    
     A = uint8(zeros(im_sizex, im_sizey,length(files)));
     for i = 1:length(files)
         A(:,:,i) = imread(char(files(i)));
     end
-        
+    cost = -1*ones(size(population,2),1);    
 
     for itr=1:1:maxItr
-        if DEBUG
-            disp('stochasticSearch: Calling evalcost on parent population')
+        
+        if sum(cost==-1)>0
+            if DEBUG
+                itr
+                disp('stochasticSearch: Calling evalcost on parent population')
+            end
+            cost = evalCost( population,A );
+        else
+            if DEBUG
+                itr
+                disp('stochasticSearch: Already have cost of parent population')
+            end
         end
-        cost = evalCost( population,A );
         assignedProbability  = evalProbability( cost );
         cardinalityNewPopRW  = evalCardinality( assignedProbability,noOfSamples );
         newPopRW = genPopRW(population, cardinalityNewPopRW,radius,sMin,sMax );
@@ -38,15 +48,18 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
         newPopRLCCost=evalCost( newPopRLC,A );
         combinedCost=[cost',newPopRWCost',newPopRRICost',newPopRLCCost'];
         combinedPopulation=[population,newPopRW,newPopRRI,newPopRLC];
-        nextGenPopulation = nextGenSelection( combinedCost,combinedPopulation,noOfSamples );
+        [nextGenPopulation,cost] = nextGenSelection( combinedCost,combinedPopulation,noOfSamples );
+        cost = cost';
         if DEBUG
+            itr
             disp('stochasticSearch: Best population selected')
         end
-        bestCostOfAGen(itr)=combinedCost(1);
+        bestCostOfAGen(itr)=cost(1);
         bestPointOfAGen(:,itr)=nextGenPopulation(:,1);  %best point in each iteration
         population=nextGenPopulation;
         % for saving the best scatter
-        evalCost(bestPointOfAGen(:,itr), A, 1, sprintf('best\iteration_%d.png',itr));
+        evalCost(bestPointOfAGen(:,itr), A, 1, sprintf('iteration_%d.png',itr));
+        save(sprintf('iteration_%d.mat',itr),'nextGenPopulation');
     end
     x=bestPointOfAGen;
     

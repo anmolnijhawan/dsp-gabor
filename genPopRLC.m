@@ -10,8 +10,8 @@ function [ newPopRLC ] = genPopRLC(population, sMin,sMax,nRLC )
        index(index>li(2)) = li(2);
        index(index<1) = 1;
        newSample=alpha(3)*population(index(1))+(1-alpha(3))*population(index(2));
-       %[ newSample ] = boundCheck(newSample, sMin,sMax );%this is require??it will be a point in between
-        newPopRLC(:,i)=newSample;
+%        [ newSample ] = boundCheck(newSample, sMin,sMax );%this is require??it will be a point in between
+       newPopRLC(:,i)=newSample;
    end
    
 
