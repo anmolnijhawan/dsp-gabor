@@ -5,11 +5,11 @@ DEBUG = 1;
 sMin = [  -1,   -1,       1,       1,  1,  1,     0,    0]';
 sMax = [   1,    1,      20,      20, 10, 10,    pi,   pi]';
 radius=[0.05, 0.05,       1,       1,0.1,0.1,   0.3,  0.3]';
-population_size = 5;
+population_size = 20;
 
-nRRI=1;
-nRLC=1;
-maxItr=5;
+nRRI=10;
+nRLC=5;
+maxItr=10;
 files = {'D51.gif', 'D96.gif'};
 num_gabor = 1;
 
