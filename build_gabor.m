@@ -1,15 +1,15 @@
 function [ gr,gi ] = build_gabor( mu_x, mu_y, sigma_x, sigma_y, fx, fy, theta, phase )
-%BUILD_GABOR returns a 6*fx x 6*fy gabor matrix
+%BUILD_GABOR returns a 6*sigma_x x 6*sigma_y gabor matrix
 % x vertical, y horizontal
 DEBUG = 0;
 ct = cos(theta);
 st = sin(theta);
 
-size_x = 2*ceil(6*sigma_x)+1;
+size_x = 2*ceil(6*abs(sigma_x))+1;
 % if(mod(size_x,2)==0)
 %     size_x = size_x+1;
 % end
-size_y = 2*ceil(6*sigma_y)+1;
+size_y = 2*ceil(6*abs(sigma_y))+1;
 % if(mod(size_y,2)==0)
 %     size_y = size_y+1;
 % end
