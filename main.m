@@ -18,6 +18,19 @@ if DEBUG
     sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files    
 end
 
+%Run a check to see hat all the images have the same sizes. The size of the
+%first image is taken as a reference.
+reference_image_size = size(imread(char(files(1))));
+for file_number = 1:size(files,1)
+    if(reference_image_size ~= size(imread(char(files(file_number)))))
+        print('ERROR! ' + 'Image ' + file_number + '"s size doesn"t match the size of the first image');
+        return
+    end
+end
+
+    
+    
+
 joint_best_pop = stochasticSearch( sMin,sMax,population_size,radius,nRRI,nRLC,maxItr,files );
 filename = sprintf('population_variation_%s.mat',datestr(clock,'dd_HH_MM_SS'));
 save(filename);

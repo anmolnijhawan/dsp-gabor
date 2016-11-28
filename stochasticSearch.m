@@ -2,8 +2,10 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
 %STOCHASTICSEARCH Program to implement the stochastic serach algorithm
 %   Eg:-stochasticSearch( [-20;-20],[20;20],100,4... )
     DEBUG = 1;
-
-    im_sizex = 640; im_sizey=640;
+%Set the size of the images to be read. Ensure that all the images are of
+%the same size.
+    
+    im_sizex = size(imread(char(files(1))),1); im_sizey=size(imread(char(files(1))),1);
     population=generatePopulation(sMin,sMax,noOfSamples );
     save(sprintf('iteration_0.mat'),'population');
     bestPointOfAGen=zeros(length(sMax),maxItr);
