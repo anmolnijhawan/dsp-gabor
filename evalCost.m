@@ -89,7 +89,7 @@ for pop = 1:size(population,2)
        C
    end
    
-   d = (Y(1)-Y(2))'*(Y(1)-Y(2));
+   d = (Y(:,1)-Y(:,2))'*(Y(:,1)-Y(:,2));
    s = max(C);
    cost(pop) = d/s;
    

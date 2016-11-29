@@ -6,7 +6,13 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
 %the same size.
     
     im_sizex = size(imread(char(files(1))),1); im_sizey=size(imread(char(files(1))),1);
-    population=generatePopulation(sMin,sMax,noOfSamples );
+
+%%
+%     population=generatePopulation(sMin,sMax,noOfSamples );
+    tp = load('start_pop1.mat','new_population');
+    population = tp.new_population;
+%%
+    
     save(sprintf('iteration_0.mat'),'population');
     bestPointOfAGen=zeros(length(sMax),maxItr);
     bestCostOfAGen=zeros(1,maxItr);
@@ -61,7 +67,7 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
         population=nextGenPopulation;
         % for saving the best scatter
         evalCost(bestPointOfAGen(:,itr), A, 1, sprintf('iteration_%d.png',itr));
-        save(sprintf('iteration_%d.mat',itr),'nextGenPopulation');
+        save(sprintf('iteration_%d.mat',itr),'nextGenPopulation','cost');
     end
     x=bestPointOfAGen;
     

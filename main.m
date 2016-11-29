@@ -2,15 +2,15 @@
 DEBUG = 1;
 % limits of search space
 %       mu_x, mu_y, sigma_x, sigma_y, fx, fy, theta, phase
-sMin = [  -1,   -1,       1,       1,  1,  1,     0,    0]';
-sMax = [   1,    1,      20,      20, 10, 10,    pi,   pi]';
-radius=[0.05, 0.05,       1,       1,0.1,0.1,   0.3,  0.3]';
-population_size = 20;
+sMin = [  -2,   -2,       1,       1,0.1,0.1,     0,    0]';
+sMax = [   2,    2,      21,      21, 10, 10,    pi,   pi]';
+radius=[0.05, 0.05,     0.5,     0.5,0.1,0.1,   0.3,  0.3]';
+population_size = 15;
 
-nRRI=10;
-nRLC=5;
-maxItr=10;
-files = {'D51.gif', 'D96.gif'};
+nRRI=20;
+nRLC=10;
+maxItr=5;
+files = {'D94.gif', 'D96.gif'};
 num_gabor = 1;
 
 if DEBUG
