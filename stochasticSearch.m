@@ -7,7 +7,7 @@ function [ x ] = stochasticSearch( sMin,sMax,noOfSamples,radius,nRRI,nRLC,maxItr
     
     im_sizex = size(imread(char(files(1))),1); im_sizey=size(imread(char(files(1))),1);
 
-%%
+%%  this segment will let the user use a predetermined population as starting point for stochastic search
 %     population=generatePopulation(sMin,sMax,noOfSamples );
     tp = load('start_pop1.mat','new_population');
     population = tp.new_population;
